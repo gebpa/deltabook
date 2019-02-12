@@ -15,5 +15,6 @@ public class Contact {
     @JoinColumn(name = "friendToId")
     private User friendToId;
     private boolean isAccepted;
+    @Lob
     private String requestMessage;
 }

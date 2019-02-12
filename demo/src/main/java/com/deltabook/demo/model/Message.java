@@ -17,6 +17,7 @@ public class Message {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "recipient_ID")
     private User recipientID;
+    @Lob
     private String body;
     private Timestamp createdAt;
 }

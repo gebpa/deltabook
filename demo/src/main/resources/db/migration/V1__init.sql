@@ -5,14 +5,14 @@ CREATE TABLE users (
 	password varchar(100) not null,
 	first_name varchar(40),
 	last_name varchar(40),
-	picture varchar(255)
+	picture clob
 );
 
 CREATE TABLE messages (
 	id bigint primary key,
 	sender_id bigint references users(id),
 	recipient_id bigint references users(id),
-	body varchar(255) not null,
+	body clob not null,
 	created_at timestamp
 );
 
@@ -21,5 +21,5 @@ CREATE TABLE contacts (
 	friend_from_id bigint references users(id),
 	friend_to_id bigint references users(id),
 	is_Accepted boolean,
-	request_Message varchar(255)
+	request_Message clob
 );

@@ -16,6 +16,8 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
+
+    @Lob
     private String picture;
 
     @OneToMany(mappedBy = "friendFromId", cascade = CascadeType.ALL)
