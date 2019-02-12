@@ -9,11 +9,12 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "friend_from_id")
+    @JoinColumn(name = "friendFromId")
     private User friendFromId;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "friend_to_id")
+    @JoinColumn(name = "friendToId")
     private User friendToId;
     private boolean isAccepted;
+    @Lob
     private String requestMessage;
 }

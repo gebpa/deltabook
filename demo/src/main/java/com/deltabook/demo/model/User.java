@@ -16,11 +16,20 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
+
+    @Lob
     private String picture;
 
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
-    private List<Contact> contacts;
+    @OneToMany(mappedBy = "friendFromId", cascade = CascadeType.ALL)
+    private List<Contact> contacts_from;
 
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
-    private List<Message> messages;
+    @OneToMany(mappedBy = "friendToId", cascade = CascadeType.ALL)
+    private List<Contact> contacts_to;
+
+    @OneToMany(mappedBy = "senderID", cascade = CascadeType.ALL)
+    private List<Message> messages_sender;
+
+    @OneToMany(mappedBy = "recipientID", cascade = CascadeType.ALL)
+    private List<Message> messages_recipient;
+
 }
