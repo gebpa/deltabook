@@ -1,4 +1,4 @@
-package com.deltabook.demo.model;
+package com.deltabook.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

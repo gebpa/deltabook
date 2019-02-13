@@ -1,9 +1,9 @@
-package com.deltabook.demo.model;
+package com.deltabook.model;
 
 import javax.persistence.*;
 import java.util.List;
 
-import static com.deltabook.demo.model.Roles.ROLE_USER;
+import static com.deltabook.model.Roles.ROLE_USER;
 
 @Entity
 @Table(name = "users")

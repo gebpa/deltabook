@@ -1,4 +1,4 @@
-package com.deltabook.demo;
+package com.deltabook;
 
 public class SendMessage {
     public String getBody() {

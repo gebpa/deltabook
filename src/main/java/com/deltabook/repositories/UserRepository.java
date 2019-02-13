@@ -1,6 +1,6 @@
-package com.deltabook.demo.repositories;
+package com.deltabook.repositories;
 
-import com.deltabook.demo.model.User;
+import com.deltabook.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
