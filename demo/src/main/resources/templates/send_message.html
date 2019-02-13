@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+    <title>Send message</title>
+</head>
+<body>
+<img src="../static/images/logo.png" width="419" th:src="@{images/logo.png}"/>
+<h1>Отправка сообщения</h1>
+<form action="#" th:action="@{/enter_message_data}" th:object="${recipient}" method="post">
+    <p>Friend NickName: <input type="text" th:field="*{Nickanme}" /></p>
+    <p>Body: <input type="text" th:field="*{Body}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>
