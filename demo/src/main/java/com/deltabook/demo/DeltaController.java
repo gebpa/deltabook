@@ -2,6 +2,7 @@ package com.deltabook.demo;
 
 import com.deltabook.demo.model.*;
 import com.deltabook.demo.repositories.ContactRepository;
+import com.deltabook.demo.repositories.MessageRepository;
 import com.deltabook.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -87,7 +88,7 @@ public class DeltaController {
     @RequestMapping( value = "/enter_message_data")
     String send_message(Model model, @ModelAttribute SendMessage recipient) {
 
-        User correct_recipient = userRepository.findLog(recipient.getNickanme());
+        User correct_recipient = userRepository.findUserByLogin(recipient.getNickanme());
         System.out.println(recipient.getBody());
         messageRepository.save(new Message(currentUser,correct_recipient,recipient.getBody()));
         return "user_panel";
