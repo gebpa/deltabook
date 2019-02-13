@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
-    <title>Welcome to DeltaBook mainpage!</title>
+    <title>Send message</title>
 </head>
 <body>
 <img src="../static/images/logo.png" width="419" th:src="@{images/logo.png}"/>
-<h1>Вход</h1>
-<form action="#" th:action="@{/enter_auth}" th:object="${objectToFill_auth}" method="post">
-    <p>Login: <input type="text" th:field="*{login}" /></p>
-    <p>Password: <input type="text" th:field="*{password}" /></p>
+<h1>Отправка сообщения</h1>
+<form action="#" th:action="@{/enter_message_data}" th:object="${recipient}" method="post">
+    <p>Friend NickName: <input type="text" th:field="*{Nickanme}" /></p>
+    <p>Body: <input type="text" th:field="*{Body}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
-<a href="/registration">Регистрация</a>
 </body>
 </html>
