@@ -2,6 +2,7 @@ package com.deltabook.demo;
 
 import com.deltabook.demo.model.*;
 import com.deltabook.demo.repository.ContactRepository;
+import com.deltabook.demo.repository.MessageRepository;
 import com.deltabook.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,9 @@ public class DeltaController {
 
     @Autowired
     private ContactRepository contactRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
 
     private User currentUser;
     @RequestMapping("/")
@@ -57,6 +61,11 @@ public class DeltaController {
     String user_panel(Model model) {
         return "user_panel";
     }
+    @RequestMapping( value = "/send_message")
+    String send_message(Model model) {
+        model.addAttribute("recipient", new SendMessage ());
+        return "send_message";
+    }
     @RequestMapping( value = "/add_user")
     String add_user(Model model) {
         model.addAttribute("user_to", new User ());
@@ -69,10 +78,12 @@ public class DeltaController {
         contactRepository.save(new Contact(currentUser, correct_user_to));
         return "user_panel";
     }
-    @RequestMapping( value = "/exit_user_panel")
-    String exit_user_panel(Model model) {
-        currentUser = null;
-        model.addAttribute("objectToFill_auth", new User ());
-        return "main";
+    @RequestMapping( value = "/enter_message_data")
+    String send_message(Model model, @ModelAttribute SendMessage recipient) {
+
+        User correct_recipient = userRepository.findLog(recipient.getNickanme());
+        System.out.println(recipient.getBody());
+        messageRepository.save(new Message(currentUser,correct_recipient,recipient.getBody()));
+        return "user_panel";
     }
 }
