@@ -61,6 +61,13 @@ public class DeltaController {
     String user_panel(Model model) {
         return "user_panel";
     }
+    @RequestMapping( value = "/exit_user_panel")
+    String exit_user_panel(Model model) {
+        currentUser = null;
+        model.addAttribute("objectToFill_auth", new User ());
+        return "main";
+    }
+
     @RequestMapping( value = "/send_message")
     String send_message(Model model) {
         model.addAttribute("recipient", new SendMessage ());
