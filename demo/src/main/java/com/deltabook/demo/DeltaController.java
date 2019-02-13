@@ -69,5 +69,10 @@ public class DeltaController {
         contactRepository.save(new Contact(currentUser, correct_user_to));
         return "user_panel";
     }
-
+    @RequestMapping( value = "/exit_user_panel")
+    String exit_user_panel(Model model) {
+        currentUser = null;
+        model.addAttribute("objectToFill_auth", new User ());
+        return "main";
+    }
 }
