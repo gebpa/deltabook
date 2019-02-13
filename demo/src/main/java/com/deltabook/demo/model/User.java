@@ -8,7 +8,8 @@ import static com.deltabook.demo.model.Roles.ROLE_USER;
 @Entity
 @Table(name = "users")
 public class User {
-    public User() {}
+    public User() {
+    }
     public User(String login, String password) {
         this.login = login;
         this.password = password;

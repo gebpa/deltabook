@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+    <title>Add user</title>
+</head>
+<body>
+<img src="../static/images/logo.png" width="419" th:src="@{images/logo.png}"/>
+<h1>Добавление в друзья</h1>
+<form action="#" th:action="@{/enter_add_friend}" th:object="${user_to}" method="post">
+    <p>Friend NickName: <input type="text" th:field="*{login}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>

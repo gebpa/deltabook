@@ -11,5 +11,8 @@ public interface UserRepository extends CrudRepository<User, Long>{
     List<User> findByLastName(String lastName);
 
     @Query("from User where login=:login and password=:password")
-    public Iterable<User> findLogPass(@Param("login") String login, @Param("password") String password );
+    public User findLogPass(@Param("login") String login, @Param("password") String password );
+
+    @Query("from User where login=:login")
+    public User findLog(@Param("login") String login);
 }
