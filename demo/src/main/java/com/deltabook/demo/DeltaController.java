@@ -1,8 +1,8 @@
 package com.deltabook.demo;
 
 import com.deltabook.demo.model.*;
-import com.deltabook.demo.repository.ContactRepository;
-import com.deltabook.demo.repository.UserRepository;
+import com.deltabook.demo.repositories.ContactRepository;
+import com.deltabook.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,7 +44,7 @@ public class DeltaController {
     @RequestMapping( value = "/enter_auth", method = RequestMethod.POST)
     String auth(@ModelAttribute("UserObj") User insertedObject, Model model) {
         model.addAttribute("objectToFill_auth", new User ());
-        User user =  userRepository.findLogPass(insertedObject.getLogin(), insertedObject.getPassword());
+        User user =  userRepository.findUserByLoginAndPassword(insertedObject.getLogin(), insertedObject.getPassword());
 
         if(user == null)
         return "error_auth";
@@ -65,7 +65,7 @@ public class DeltaController {
     @RequestMapping( value = "/enter_add_friend", method = RequestMethod.POST)
     String enter_add_friend(Model model, @ModelAttribute User user_to) {
 
-        User correct_user_to = userRepository.findLog(user_to.getLogin());
+        User correct_user_to = userRepository.findUserByLogin(user_to.getLogin());
         contactRepository.save(new Contact(currentUser, correct_user_to));
         return "user_panel";
     }
