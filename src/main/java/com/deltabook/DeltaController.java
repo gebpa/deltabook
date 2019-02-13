@@ -1,9 +1,9 @@
-package com.deltabook.demo;
+package com.deltabook;
 
-import com.deltabook.demo.model.*;
-import com.deltabook.demo.repositories.ContactRepository;
-import com.deltabook.demo.repositories.MessageRepository;
-import com.deltabook.demo.repositories.UserRepository;
+import com.deltabook.model.*;
+import com.deltabook.repositories.ContactRepository;
+import com.deltabook.repositories.MessageRepository;
+import com.deltabook.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
