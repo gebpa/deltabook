@@ -87,8 +87,8 @@ public class DeltaController {
     }
     @RequestMapping( value = "/enter_message_data")
     String send_message(Model model, @ModelAttribute SendMessage recipient) {
-
         User correct_recipient = userRepository.findUserByLogin(recipient.getNickanme());
+
         System.out.println(recipient.getBody());
         messageRepository.save(new Message(currentUser,correct_recipient,recipient.getBody()));
         return "user_panel";
