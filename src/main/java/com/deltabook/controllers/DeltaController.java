@@ -43,20 +43,19 @@ public class DeltaController {
     String auth(@ModelAttribute("UserObj") User insertedObject, Model model) {
         model.addAttribute("objectToFill_auth", new User());
         User user = userService.getUserByLogin(insertedObject.getLogin());
-
-        if (user == null)
-            return "error_auth";
-
-        currentUser = user;
-        return "user_panel";
+        if (user != null && userService.checkPassword(insertedObject)) {
+            currentUser = user;
+            return "user_panel";
+        }
+        return "error_auth";
 
     }
-    @RequestMapping( value = "/user_panel")
-    ModelAndView user_panel(Model model) {
-        ModelAndView modelAndView =new ModelAndView();
-        String image_string;
-        image_string = Base64.getEncoder().encodeToString (currentUser.getPicture());
 
+    @RequestMapping(value = "/user_panel")
+    ModelAndView user_panel(Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+        String image_string;
+        image_string = Base64.getEncoder().encodeToString(currentUser.getPicture());
         modelAndView.addObject("image", image_string);
         modelAndView.setViewName("user_panel");
         return modelAndView;
@@ -97,16 +96,17 @@ public class DeltaController {
         messageRepository.save(new Message(currentUser, correct_recipient, recipient.getBody()));
         return "user_panel";
     }
+  
     @RequestMapping("/upload_avatar")
     public String UploadPage(Model model) {
         model.addAttribute("msg", "Waiting for upload ");
         return "upload_avatar";
     }
-    @RequestMapping("/upload")
-    public String upload(Model model,@RequestParam("files") MultipartFile file) throws Exception {
-            currentUser.setPicture(file.getBytes());
-            userRepository.saveAndFlush(currentUser);
 
+    @RequestMapping("/upload")
+    public String upload(Model model, @RequestParam("files") MultipartFile file) throws Exception {
+        currentUser.setPicture(file.getBytes());
+        userRepository.saveAndFlush(currentUser);
         model.addAttribute("msg", "Successfully uploaded files ");
         return "upload_avatar";
     }
