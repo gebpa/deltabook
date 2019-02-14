@@ -3,18 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
-    <title>Welcome to DeltaBook mainpage!</title>
+    <title>User Panel</title>
 </head>
 <body>
 <img src="../static/images/logo.png" width="419" th:src="@{images/logo.png}"/>
-<h1>Вход</h1>
-<form action="#" th:action="@{/enter_auth}" th:object="${objectToFill_auth}" method="post">
-    <p>Login:</p>
-    <input type="text" th:field="*{login}" /></p>
-    <p>Password:</p>
-    <input type="password" th:field="*{password}" /></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-</form>
-<a href="/registration">Регистрация</a>
+<h1>Пользовательская панель</h1>
+<p><a href="/upload_avatar">Загрузить аватарку</a>
+    <a href="/add_user">Добавить пользователя в друзья</a>
+    <a href="/send_message">Отправить сообщение</a>
+    <a href="/logout">Выход</a></p>
+<table style="font-family: Helvetica; font-size: 13px; color: #000000; ">
+    <tr>
+        <td rowspan="2">
+            <img id="avatar" th:src="*{'data:image/png;base64,'+image}" alt="" />
+        </td>
+        <td valign="bottom">
+            Name: <span th:text="${name}"></span>
+        </td>
+    </tr>
+    <td  valign="top">
+        Surname:<span th:text="${surname}"></span>
+    </td>
+    </tr>
+</table>
 </body>
 </html>

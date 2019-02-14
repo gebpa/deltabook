@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class DeltaErrorController implements ErrorController {
+public class MainErrorController implements ErrorController {
 
     @RequestMapping("/error")
     public String handleError() {

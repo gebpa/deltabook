@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
-    <title>Add user</title>
+    <title>Welcome to DeltaBook mainpage!</title>
 </head>
 <body>
 <img src="../static/images/logo.png" width="419" th:src="@{images/logo.png}"/>
-<h1>Добавление в друзья</h1>
-<a href="/">Назад в панель пользователя</a>
-<form action="#" th:action="@{/enter_add_friend}" th:object="${user_to}" method="post">
-    <p>Friend NickName:</p>
-    <input type="text" th:field="*{login}" />
+<h1>Вход</h1>
+<form action="#" th:action="@{/login}" method="post">
+    <p>Login:</p>
+    <input type="text" id="login" name="login" autofocus="autofocus"  /></p>
+    <p>Password:</p>
+    <input type="password" id="password" name="password" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
+<a href="/registration">Регистрация</a>
 </body>
 </html>
