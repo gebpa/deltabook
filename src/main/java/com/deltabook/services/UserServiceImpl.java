@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
 //            return "Password has to contain at least one digit and and at least one letter";
 //        }
 //        String hashedPassword = passwordEncoder.encode(user.getPassword());
-
         userRepository.save(new User(user.getLogin(), user.getPassword(), user.getFirstName(), user.getLastName()));
         return "Success";
     }

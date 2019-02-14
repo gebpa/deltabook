@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.Base64;
 
 @Controller
@@ -57,7 +56,6 @@ public class DeltaController {
         ModelAndView modelAndView = new ModelAndView();
         String image_string;
         image_string = Base64.getEncoder().encodeToString(currentUser.getPicture());
-
         modelAndView.addObject("image", image_string);
         modelAndView.setViewName("user_panel");
         return modelAndView;
@@ -98,7 +96,7 @@ public class DeltaController {
         messageRepository.save(new Message(currentUser, correct_recipient, recipient.getBody()));
         return "user_panel";
     }
-
+  
     @RequestMapping("/upload_avatar")
     public String UploadPage(Model model) {
         model.addAttribute("msg", "Waiting for upload ");
@@ -109,7 +107,6 @@ public class DeltaController {
     public String upload(Model model, @RequestParam("files") MultipartFile file) throws Exception {
         currentUser.setPicture(file.getBytes());
         userRepository.saveAndFlush(currentUser);
-
         model.addAttribute("msg", "Successfully uploaded files ");
         return "upload_avatar";
     }
