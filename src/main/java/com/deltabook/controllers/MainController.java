@@ -57,16 +57,16 @@ public class MainController {
 
     @RequestMapping(value = "/add_user")
     String add_user(Model model) {
-        model.addAttribute("user_to", new User());
+        model.addAttribute("sendFriendRequest", new SendFriendRequest());
         return "add_user";
     }
 
     @RequestMapping(value = "/enter_add_friend", method = RequestMethod.POST)
-    String enter_add_friend(Authentication authentication, Model model, @ModelAttribute User user_to) {
+    String enter_add_friend(Authentication authentication, Model model, @ModelAttribute SendFriendRequest send_req) {
         UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
         User user = principal.getUser();
-        User correct_user_to = userRepository.findUserByLogin(user_to.getLogin());
-        contactRepository.save(new Contact(user, correct_user_to));
+        User correct_user_to = userRepository.findUserByLogin(send_req.getFriendNickname());
+        contactRepository.save(new Contact(user, correct_user_to,send_req.getRequestMessage() ));
         return "user_panel";
     }
 
