@@ -32,13 +32,14 @@ public class UserServiceImpl implements UserService {
 //        if (!user.getPassword().matches(pattern)) {
 //            return "Password has to contain at least one digit and and at least one letter";
 //        }
-        String hashedPassword = passwordEncoder.encode(user.getPassword());
-        userRepository.save(new User(user.getLogin(), hashedPassword, user.getFirstName(), user.getLastName()));
+//        String hashedPassword = passwordEncoder.encode(user.getPassword());
+
+        userRepository.save(new User(user.getLogin(), user.getPassword(), user.getFirstName(), user.getLastName()));
         return "Success";
     }
 
     public String updateUser(User newUser, User oldUser) {
-        if (passwordEncoder.encode(newUser.getPassword()).equals(oldUser.getPassword())) {
+        if (newUser.getPassword().equals(oldUser.getPassword())) {
             return "Wrong Password";
         }
         if (userRepository.findUserByLogin(newUser.getLogin()) != null && userRepository.findUserByLogin(newUser.getLogin()) != oldUser) {
@@ -51,5 +52,13 @@ public class UserServiceImpl implements UserService {
 
     public void deleteUser(User user) {
         userRepository.delete(user);
+    }
+
+    public boolean checkPassword(User user){
+        User userFromDB = userRepository.findUserByLogin(user.getLogin());
+//        String hashedPassword = passwordEncoder.encode(user.getPassword());
+//        String hashedPasswordFromDB = userFromDB.getPassword();
+        return user.getPassword().equals(userFromDB.getPassword());
+
     }
 }

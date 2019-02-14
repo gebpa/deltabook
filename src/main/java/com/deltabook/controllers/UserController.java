@@ -20,7 +20,7 @@ public class UserController {
         return "registration";
     }
 
-    @PostMapping("/registration")
+    @PostMapping("/enter_reg")
     public String registerUser(@ModelAttribute User insertedObject, Model model) {
         userService.registerUser(insertedObject);
         model.addAttribute("objectToFill_auth", new User ());
