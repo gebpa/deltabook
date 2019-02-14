@@ -8,7 +8,7 @@
 <body>
 <img src="../static/images/logo.png" width="419" th:src="@{images/logo.png}"/>
 <h1>Отправка сообщения</h1>
-<a href="/user_panel">Назад в панель пользователя</a>
+<a href="/">Назад в панель пользователя</a>
 <form action="#" th:action="@{/enter_message_data}" th:object="${recipient}" method="post">
     <p>Friend NickName:</p>
     <input type="text" th:field="*{Nickanme}" />

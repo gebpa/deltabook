@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+    <title>Welcome to DeltaBook mainpage!</title>
+</head>
+<body>
+<img src="../static/images/logo.png" width="419" th:src="@{images/logo.png}"/>
+<div align="center">
+    <h1>Войдите в систему или зарегистрируйтесь</h1>
+    <form action="#" th:action="@{/login}" method="post">
+        <p>Login:</p>
+        <input type="text" id="login" name="login" autofocus="autofocus"  /></p>
+        <p>Password:</p>
+        <input type="password" id="password" name="password" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+    <a href="/registration">Регистрация</a>
+</div>
+</body>
+</html>

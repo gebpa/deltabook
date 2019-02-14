@@ -5,6 +5,8 @@ CREATE TABLE users (
 	password varchar(100) not null,
 	first_name varchar(40),
 	last_name varchar(40),
+	is_Deleted boolean,
+	is_Blocked boolean,
 	picture blob
 );
 

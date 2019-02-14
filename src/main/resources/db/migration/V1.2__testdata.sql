@@ -1,8 +1,8 @@
-INSERT INTO USERS (LOGIN, ROLE, PASSWORD, FIRST_NAME, LAST_NAME) VALUES ('admin2', 0, 'admin', 'ivan', 'ivanov');
-INSERT INTO USERS (LOGIN, ROLE, PASSWORD, FIRST_NAME, LAST_NAME) VALUES ('nagibator98', 1, 'admin98', 'dmitry', 'sidorov');
-INSERT INTO USERS (LOGIN, ROLE, PASSWORD, FIRST_NAME, LAST_NAME) VALUES ('dd04072001', 1, 'alex0407', 'alex', 'wolf');
-INSERT INTO USERS (LOGIN, ROLE, PASSWORD, FIRST_NAME, LAST_NAME) VALUES ('fedor_traktorist', 1, 'fedor78', 'fedor', 'ignatev');
-INSERT INTO USERS (LOGIN, ROLE, PASSWORD, FIRST_NAME, LAST_NAME) VALUES ('selo78', 1, 'chichik78', 'anton', 'chichikov');
+INSERT INTO USERS (LOGIN, ROLE, PASSWORD, FIRST_NAME, LAST_NAME, is_Blocked,is_Deleted ) VALUES ('admin2', 0, 'admin', 'ivan', 'ivanov',false, false);
+INSERT INTO USERS (LOGIN, ROLE, PASSWORD, FIRST_NAME, LAST_NAME, is_Blocked,is_Deleted ) VALUES ('nagibator98', 1, 'admin98', 'dmitry', 'sidorov',false, false);
+INSERT INTO USERS (LOGIN, ROLE, PASSWORD, FIRST_NAME, LAST_NAME, is_Blocked,is_Deleted ) VALUES ('dd04072001', 1, 'alex0407', 'alex', 'wolf',false, false);
+INSERT INTO USERS (LOGIN, ROLE, PASSWORD, FIRST_NAME, LAST_NAME, is_Blocked,is_Deleted ) VALUES ('fedor_traktorist', 1, 'fedor78', 'fedor', 'ignatev',false, false);
+INSERT INTO USERS (LOGIN, ROLE, PASSWORD, FIRST_NAME, LAST_NAME, is_Blocked,is_Deleted ) VALUES ('selo78', 1, 'chichik78', 'anton', 'chichikov',false, false);
 
 INSERT INTO CONTACTS(FRIEND_FROM_ID, FRIEND_TO_ID, IS_ACCEPTED, REQUEST_MESSAGE) VALUES (1, 2, false, 'приффки');
 INSERT INTO CONTACTS(FRIEND_FROM_ID, FRIEND_TO_ID, IS_ACCEPTED, REQUEST_MESSAGE) VALUES (2, 3, false, 'хей чувак');

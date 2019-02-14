@@ -4,8 +4,10 @@ import com.deltabook.model.*;
 import com.deltabook.repositories.ContactRepository;
 import com.deltabook.repositories.MessageRepository;
 import com.deltabook.repositories.UserRepository;
+import com.deltabook.security.datails.UserDetailsImpl;
 import com.deltabook.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,10 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Base64;
 
 @Controller
-public class DeltaController {
-
-    @Autowired
-    private UserService userService;
+public class MainController {
 
     @Autowired
     private UserRepository userRepository;
@@ -31,43 +30,23 @@ public class DeltaController {
     @Autowired
     private MessageRepository messageRepository;
 
-    private User currentUser;
 
     @RequestMapping("/")
-    public String MainPage(Model model) {
+    public ModelAndView MainPage(Authentication authentication, Model model) {
         model.addAttribute("objectToFill_auth", new User());
-        return "main";
-    }
-
-    @RequestMapping(value = "/enter_auth", method = RequestMethod.POST)
-    String auth(@ModelAttribute("UserObj") User insertedObject, Model model) {
-        model.addAttribute("objectToFill_auth", new User());
-        User user = userService.getUserByLogin(insertedObject.getLogin());
-        if (user != null && userService.checkPassword(insertedObject)) {
-            currentUser = user;
-            return "user_panel";
-        }
-        return "error_auth";
-
-    }
-
-    @RequestMapping(value = "/user_panel")
-    ModelAndView user_panel(Model model) {
         ModelAndView modelAndView = new ModelAndView();
+        UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
+        User user = principal.getUser();
+        System.out.println(user.getLogin());
         String image_string;
-        image_string = Base64.getEncoder().encodeToString(currentUser.getPicture());
-        modelAndView.addObject("image", image_string);
-        modelAndView.addObject("name", currentUser.getFirstName());
-        modelAndView.addObject("surname", currentUser.getLastName());
-        modelAndView.setViewName("user_panel");
+        if (user.getPicture() != null){
+            image_string = Base64.getEncoder().encodeToString(user.getPicture());
+            modelAndView.addObject("image", image_string);
+        }
+        modelAndView.addObject("name", user.getFirstName());
+        modelAndView.addObject("surname", user.getLastName());
+        modelAndView.setViewName("main");
         return modelAndView;
-    }
-
-    @RequestMapping(value = "/exit_user_panel")
-    String exit_user_panel(Model model) {
-        currentUser = null;
-        model.addAttribute("objectToFill_auth", new User());
-        return "main";
     }
 
     @RequestMapping(value = "/send_message")
@@ -83,20 +62,22 @@ public class DeltaController {
     }
 
     @RequestMapping(value = "/enter_add_friend", method = RequestMethod.POST)
-    String enter_add_friend(Model model, @ModelAttribute SendFriendRequest send_req) {
-
+    String enter_add_friend(Authentication authentication, Model model, @ModelAttribute SendFriendRequest send_req) {
+        UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
+        User user = principal.getUser();
         User correct_user_to = userRepository.findUserByLogin(send_req.getFriendNickname());
-        contactRepository.save(new Contact(currentUser, correct_user_to,send_req.getRequestMessage() ));
-        return "user_panel";
+        contactRepository.save(new Contact(user, correct_user_to,send_req.getRequestMessage() ));
+        return "main";
     }
 
     @RequestMapping(value = "/enter_message_data")
-    String send_message(Model model, @ModelAttribute SendMessage recipient) {
+    String send_message(Authentication authentication, Model model, @ModelAttribute SendMessage recipient) {
         User correct_recipient = userRepository.findUserByLogin(recipient.getNickanme());
-
+        UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
+        User user = principal.getUser();
         System.out.println(recipient.getBody());
-        messageRepository.save(new Message(currentUser, correct_recipient, recipient.getBody()));
-        return "user_panel";
+        messageRepository.save(new Message(user, correct_recipient, recipient.getBody()));
+        return "main";
     }
   
     @RequestMapping("/upload_avatar")
@@ -106,9 +87,11 @@ public class DeltaController {
     }
 
     @RequestMapping("/upload")
-    public String upload(Model model, @RequestParam("files") MultipartFile file) throws Exception {
-        currentUser.setPicture(file.getBytes());
-        userRepository.saveAndFlush(currentUser);
+    public String upload(Authentication authentication,Model model, @RequestParam("files") MultipartFile file) throws Exception {
+        UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
+        User user = principal.getUser();
+        user.setPicture(file.getBytes());
+        userRepository.saveAndFlush(user);
         model.addAttribute("msg", "Successfully uploaded files ");
         return "upload_avatar";
     }
