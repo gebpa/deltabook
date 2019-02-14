@@ -11,6 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import java.util.Base64;
 
 @Controller
 public class DeltaController {
@@ -47,10 +51,15 @@ public class DeltaController {
         return "user_panel";
 
     }
+    @RequestMapping( value = "/user_panel")
+    ModelAndView user_panel(Model model) {
+        ModelAndView modelAndView =new ModelAndView();
+        String image_string;
+        image_string = Base64.getEncoder().encodeToString (currentUser.getPicture());
 
-    @RequestMapping(value = "/user_panel")
-    String user_panel(Model model) {
-        return "user_panel";
+        modelAndView.addObject("image", image_string);
+        modelAndView.setViewName("user_panel");
+        return modelAndView;
     }
 
     @RequestMapping(value = "/exit_user_panel")
@@ -87,5 +96,18 @@ public class DeltaController {
         System.out.println(recipient.getBody());
         messageRepository.save(new Message(currentUser, correct_recipient, recipient.getBody()));
         return "user_panel";
+    }
+    @RequestMapping("/upload_avatar")
+    public String UploadPage(Model model) {
+        model.addAttribute("msg", "Waiting for upload ");
+        return "upload_avatar";
+    }
+    @RequestMapping("/upload")
+    public String upload(Model model,@RequestParam("files") MultipartFile file) throws Exception {
+            currentUser.setPicture(file.getBytes());
+            userRepository.saveAndFlush(currentUser);
+
+        model.addAttribute("msg", "Successfully uploaded files ");
+        return "upload_avatar";
     }
 }
