@@ -13,6 +13,8 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
 
     List<Contact> findByIsAcceptedAndFriendToId(boolean isAccepted, User friendToId);
 
-    List<Contact> findByFriendFromIdAndFriendToId(User friendToId, User friendFromId);
+    List<Contact> findByIsAcceptedAndFriendFromId(boolean isAccepted, User friendFromId);
+
+    Contact findByFriendFromIdAndFriendToId(User friendFromId, User friendToId);
 
 }

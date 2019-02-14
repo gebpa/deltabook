@@ -5,11 +5,21 @@ import javax.persistence.*;
 @Entity
 @Table(name = "contacts")
 public class Contact {
-    public Contact() {}
-    public Contact(User friendFromId,User friendToId ) {
-        this.friendFromId=friendFromId;
-        this.friendToId=friendToId;
+    public Contact() {
     }
+
+    public Contact(User friendFromId, User friendToId, String requestMessage) {
+        this.friendFromId = friendFromId;
+        this.friendToId = friendToId;
+        this.requestMessage = requestMessage;
+        this.isAccepted = false;
+    }
+
+    public Contact(User friendFromId, User friendToId) {
+        this.friendFromId = friendFromId;
+        this.friendToId = friendToId;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
