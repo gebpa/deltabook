@@ -67,7 +67,7 @@ public class MainController {
         User user = principal.getUser();
         User correct_user_to = userRepository.findUserByLogin(send_req.getFriendNickname());
         contactRepository.save(new Contact(user, correct_user_to,send_req.getRequestMessage() ));
-        return "user_panel";
+        return "main";
     }
 
     @RequestMapping(value = "/enter_message_data")
@@ -77,7 +77,7 @@ public class MainController {
         User user = principal.getUser();
         System.out.println(recipient.getBody());
         messageRepository.save(new Message(user, correct_recipient, recipient.getBody()));
-        return "user_panel";
+        return "main";
     }
   
     @RequestMapping("/upload_avatar")
