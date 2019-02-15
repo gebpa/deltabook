@@ -53,4 +53,11 @@ public class UserServiceImpl implements UserService {
         user.setDeleted(true);
         userRepository.saveAndFlush(user);
     }
+
+    public void SaveUser(User user) {
+        userRepository.save(user);
+    }
+    public void SaveAndFlushUser(User user) {
+        userRepository.saveAndFlush(user);
+    }
 }

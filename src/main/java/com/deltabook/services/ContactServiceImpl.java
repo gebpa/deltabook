@@ -45,4 +45,7 @@ public class ContactServiceImpl implements ContactService{
         Contact contact = contactRepository.findByFriendFromIdAndFriendToId(fromUser, toUser);
         contactRepository.delete(contact);
     }
+    public void SaveContact(Contact contact) {
+        contactRepository.save(contact);
+    }
 }
