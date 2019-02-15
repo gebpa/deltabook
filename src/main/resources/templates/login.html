@@ -9,6 +9,12 @@
 <img src="../static/images/logo.png" width="419" th:src="@{images/logo.png}"/>
 <div align="center">
     <h1>Войдите в систему или зарегистрируйтесь</h1>
+    <div th:if="${param.error}">
+        Неправильный логин или пароль
+    </div>
+    <div th:if="${param.logout}">
+        Вы вышли из своего аккаунта
+    </div>
     <form action="#" th:action="@{/login}" method="post">
         <p>Login:</p>
         <input type="text" id="login" name="login" autofocus="autofocus"  /></p>
