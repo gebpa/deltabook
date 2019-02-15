@@ -26,7 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/css/**", "/images/**", "/h2_console/*").permitAll()
                     .antMatchers("/login", "/registration").anonymous()
-                    .antMatchers("/","/main","/send_message", "/upload_avatar", "/add_user", "/enter_add_friend").authenticated()
+                    .antMatchers("/","/send_message","/send_request","/upload_avatar").authenticated()
+                    .antMatchers("/main_admin").hasRole("ADMIN")
                     .and()
                 .formLogin()
                     .usernameParameter("login")
@@ -34,8 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .defaultSuccessUrl("/")
                     .and()
                 .logout()
-                .logoutSuccessUrl("/login")
-                .permitAll();
+                .logoutSuccessUrl("/login?logout");
 
         http.csrf().disable();
         http.headers().frameOptions().disable();

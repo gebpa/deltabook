@@ -20,12 +20,6 @@ public class AdminController {
     @RequestMapping("/main_admin")
     public String mainAdmin(Authentication authentication, Model model) {
         model.addAttribute("SendChangeUser", new SendChangeUser());
-        UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
-        User user = principal.getUser();
-       switch(user.getRole()) {
-            case ROLE_USER: return ("/");
-            case ROLE_ADMIN: return("/main_admin");
-        }
         return "main_admin";
     }
     @RequestMapping("/change_user_last_name")
