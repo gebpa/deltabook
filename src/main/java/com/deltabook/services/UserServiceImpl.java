@@ -2,10 +2,14 @@ package com.deltabook.services;
 
 
 import com.deltabook.model.User;
+import com.deltabook.model.send.SendChangeUser;
 import com.deltabook.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 
 @Service
@@ -50,14 +54,37 @@ public class UserServiceImpl implements UserService {
     }
 
     public void deleteUser(User user) {
-        userRepository.delete(user);
+        user.setDeleted(true);
+        userRepository.saveAndFlush(user);
     }
 
-    public boolean checkPassword(User user){
-        User userFromDB = userRepository.findUserByLogin(user.getLogin());
-//        String hashedPassword = passwordEncoder.encode(user.getPassword());
-//        String hashedPasswordFromDB = userFromDB.getPassword();
-        return user.getPassword().equals(userFromDB.getPassword());
-
+    public User uploadAvatar(User user,  MultipartFile file) throws Exception{
+        try{
+            user.setPicture(file.getBytes());
+            user = userRepository.saveAndFlush(user);
+        } catch (IOException ex){
+            throw new Exception("Cannot read file");
+        }
+        return user;
+    }
+    public void changeLastNameUser(SendChangeUser SendChangeUser) {
+        User user = userRepository.findUserByLogin(SendChangeUser.getNickName());
+        user.setLastName(SendChangeUser.getNewLastName());
+        userRepository.save(user);
+    }
+    public void deleteUserWithChoose(SendChangeUser SendChangeUser, String action) {
+        User user = userRepository.findUserByLogin(SendChangeUser.getNickName());
+        switch(action) {
+            case "total_delete": {
+                userRepository.delete(user);
+                break;
+            }
+            case "temp_delete":  {
+                user.setDeleted(true);
+                userRepository.save(user);
+                break;
+            }
+            default: break;
+        }
     }
 }
