@@ -10,21 +10,37 @@ import static com.deltabook.model.Roles.ROLE_USER;
 public class User {
     public User() {
     }
+
     public User(String login, String password) {
         this.login = login;
         this.password = password;
         this.role = ROLE_USER;
+        this.isBlocked=false;
+        this.isDeleted=false;
     }
-    public User(String login, String password, String  firstName, String lastName) {
+
+    public User(String login, String password, String firstName, String lastName) {
         this.login = login;
         this.password = password;
         this.role = ROLE_USER;
-        this.firstName=firstName;
-        this.lastName=lastName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.isBlocked=false;
+        this.isDeleted=false;
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String login;
+    private Roles role;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private boolean isBlocked;
+    private boolean isDeleted;
+    @Lob
+    private byte[] picture;
 
     public Long getId() {
         return id;
@@ -82,14 +98,22 @@ public class User {
         this.picture = picture;
     }
 
-    private String login;
-    private Roles role;
-    private String password;
-    private String firstName;
-    private String lastName;
 
-    @Lob
-    private byte[] picture;
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
 
     @OneToMany(mappedBy = "friendFromId", cascade = CascadeType.ALL)
     private List<Contact> contacts_from;

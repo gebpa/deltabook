@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public String updateUser(User newUser, User oldUser) {
-        if (passwordEncoder.encode(newUser.getPassword()).equals(oldUser.getPassword())) {
+        if (passwordEncoder.encode(newUser.getPassword()).equals(passwordEncoder.encode(oldUser.getPassword()))){
             return "Wrong Password";
         }
         if (userRepository.findUserByLogin(newUser.getLogin()) != null && userRepository.findUserByLogin(newUser.getLogin()) != oldUser) {
@@ -51,5 +51,13 @@ public class UserServiceImpl implements UserService {
 
     public void deleteUser(User user) {
         userRepository.delete(user);
+    }
+
+    public boolean checkPassword(User user){
+        User userFromDB = userRepository.findUserByLogin(user.getLogin());
+//        String hashedPassword = passwordEncoder.encode(user.getPassword());
+//        String hashedPasswordFromDB = userFromDB.getPassword();
+        return user.getPassword().equals(userFromDB.getPassword());
+
     }
 }
