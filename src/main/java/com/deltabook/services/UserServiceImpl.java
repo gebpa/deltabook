@@ -2,6 +2,7 @@ package com.deltabook.services;
 
 
 import com.deltabook.model.User;
+import com.deltabook.model.send.SendChangeUser;
 import com.deltabook.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -65,5 +66,25 @@ public class UserServiceImpl implements UserService {
             throw new Exception("Cannot read file");
         }
         return user;
+    }
+    public void changeLastNameUser(SendChangeUser SendChangeUser) {
+        User user = userRepository.findUserByLogin(SendChangeUser.getNickName());
+        user.setLastName(SendChangeUser.getNewLastName());
+        userRepository.save(user);
+    }
+    public void deleteUserWithChoose(SendChangeUser SendChangeUser, String action) {
+        User user = userRepository.findUserByLogin(SendChangeUser.getNickName());
+        switch(action) {
+            case "total_delete": {
+                userRepository.delete(user);
+                break;
+            }
+            case "temp_delete":  {
+                user.setDeleted(true);
+                userRepository.save(user);
+                break;
+            }
+            default: break;
+        }
     }
 }
