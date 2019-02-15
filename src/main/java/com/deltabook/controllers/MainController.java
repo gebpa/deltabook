@@ -39,7 +39,6 @@ public class MainController {
         ModelAndView modelAndView = new ModelAndView();
         UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
         User user = principal.getUser();
-        System.out.println(user.getLogin());
         String image_string;
         if (user.getPicture() != null){
             image_string = Base64.getEncoder().encodeToString(user.getPicture());
@@ -53,37 +52,6 @@ public class MainController {
         }
         modelAndView.setViewName("main");
         return modelAndView;
-    }
-
-    @RequestMapping(value = "/send_message")
-    String send_message(Model model) {
-        model.addAttribute("recipient", new SendMessage());
-        return "send_message";
-    }
-
-    @RequestMapping(value = "/add_user")
-    String add_user(Model model) {
-        model.addAttribute("sendFriendRequest", new SendFriendRequest());
-        return "add_user";
-    }
-
-    @RequestMapping(value = "/enter_add_friend", method = RequestMethod.POST)
-    String enter_add_friend(Authentication authentication, Model model, @ModelAttribute SendFriendRequest send_req) {
-        UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
-        User user = principal.getUser();
-        User correct_user_to = userRepository.findUserByLogin(send_req.getFriendNickname());
-        contactRepository.save(new Contact(user, correct_user_to,send_req.getRequestMessage() ));
-        return "main";
-    }
-
-    @RequestMapping(value = "/enter_message_data")
-    String send_message(Authentication authentication, Model model, @ModelAttribute SendMessage recipient) {
-        User correct_recipient = userRepository.findUserByLogin(recipient.getNickanme());
-        UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
-        User user = principal.getUser();
-        System.out.println(recipient.getBody());
-        messageRepository.save(new Message(user, correct_recipient, recipient.getBody()));
-        return "main";
     }
   
     @RequestMapping("/upload_avatar")

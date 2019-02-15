@@ -50,14 +50,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void deleteUser(User user) {
-        userRepository.delete(user);
-    }
-
-    public boolean checkPassword(User user){
-        User userFromDB = userRepository.findUserByLogin(user.getLogin());
-//        String hashedPassword = passwordEncoder.encode(user.getPassword());
-//        String hashedPasswordFromDB = userFromDB.getPassword();
-        return user.getPassword().equals(userFromDB.getPassword());
-
+        user.setDeleted(true);
+        userRepository.saveAndFlush(user);
     }
 }
