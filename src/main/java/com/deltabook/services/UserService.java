@@ -1,6 +1,7 @@
 package com.deltabook.services;
 
 import com.deltabook.model.User;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService {
 
@@ -8,8 +9,5 @@ public interface UserService {
     String registerUser(User user);
     String updateUser(User newUser, User oldUser);
     void deleteUser(User user);
-    boolean checkPassword(User user);
-    void SaveUser(User user);
-    void SaveAndFlushUser(User user);
-
+    User uploadAvatar(User user,  MultipartFile file) throws Exception;
 }

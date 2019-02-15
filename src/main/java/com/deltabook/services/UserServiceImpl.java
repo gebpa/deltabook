@@ -6,6 +6,9 @@ import com.deltabook.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 
 @Service
@@ -54,10 +57,13 @@ public class UserServiceImpl implements UserService {
         userRepository.saveAndFlush(user);
     }
 
-    public void SaveUser(User user) {
-        userRepository.save(user);
-    }
-    public void SaveAndFlushUser(User user) {
-        userRepository.saveAndFlush(user);
+    public User uploadAvatar(User user,  MultipartFile file) throws Exception{
+        try{
+            user.setPicture(file.getBytes());
+            user = userRepository.saveAndFlush(user);
+        } catch (IOException ex){
+            throw new Exception("Cannot read file");
+        }
+        return user;
     }
 }
