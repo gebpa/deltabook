@@ -60,4 +60,11 @@ public class UserServiceImpl implements UserService {
         return user.getPassword().equals(userFromDB.getPassword());
 
     }
+
+    public void SaveUser(User user) {
+        userRepository.save(user);
+    }
+    public void SaveAndFlushUser(User user) {
+        userRepository.saveAndFlush(user);
+    }
 }
