@@ -1,4 +1,5 @@
 function CheckAndGetMessage() {
+    $idPrevMes = -1;
     $.ajax({
         url: 'message_for_current_user',
         success: function(data) {
@@ -7,6 +8,7 @@ function CheckAndGetMessage() {
             $('#MessageForCurrentUser').html(data);
             var col=document.getElementById("MessageForCurrentUser");
             col.classList.toggle("show");
+            $idPrevMes =
         }
     });
 };

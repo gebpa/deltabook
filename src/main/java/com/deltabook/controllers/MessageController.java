@@ -23,13 +23,13 @@ public class MessageController {
     MessageService messageService;
 
     @GetMapping("/send_message")
-    String send_message(Model model) {
+    String sendMessage(Model model) {
         model.addAttribute("recipient", new SendMessage());
         return "send_message";
     }
 
     @PostMapping("/send_message")
-    String send_message(Authentication authentication, Model model, @ModelAttribute SendMessage recipient) {
+    String sendMessage(Authentication authentication, Model model, @ModelAttribute SendMessage recipient) {
         UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
         User userFrom = principal.getUser();
         Message message = messageService.sendMessage(userFrom, recipient);
@@ -37,17 +37,15 @@ public class MessageController {
         return "send_message";
     }
 
-    @GetMapping(value = "/message_for_current_user", produces = {"text/html; charset-UTF-8"})
-    public @ResponseBody
-    String messageForCurrentUser(Authentication authentication) {
-        if (authentication == null) return "";
+    @RequestMapping(value = "/message_for_current_user",method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public SendMessage getLastMessage(Authentication authentication, @RequestParam("idOfPreviousMessage") Long idOfPreviousMessage){
         UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
         User userRecipient = principal.getUser();
         Message message = messageService.getLastMessage(userRecipient);
-        if (message == null) {
-            return "";
-        } else {
-            return "<p> New message is " + message.getBody() + "</p>" + "<p> Sender is " + message.getSenderID().getLogin() + "</p>";
+        if (message.getId().equals(idOfPreviousMessage) || message == null){
+            return null;
         }
+        return new SendMessage(message);
     }
 }
