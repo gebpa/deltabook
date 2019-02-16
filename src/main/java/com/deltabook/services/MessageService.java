@@ -8,4 +8,6 @@ public interface MessageService {
 
     Message sendMessage(User userFrom, SendMessage sendMessage);
 
+    Message findByRecipientIDOrderByCreatedAt(User recipientId);
+
 }
