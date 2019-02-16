@@ -12,7 +12,6 @@ function CheckAndGetMessage() {
             });
             var col=document.getElementById("MessageForCurrentUser");
             col.classList.toggle("show");
-            $idPrevMes =
         }
     });
 };
