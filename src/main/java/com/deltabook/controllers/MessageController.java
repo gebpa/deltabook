@@ -24,7 +24,7 @@ public class MessageController {
 
     @GetMapping("/send_message")
     String sendMessage(Model model) {
-        model.addAttribute("recipient", new SendMessage());
+        model.addAttribute("sendMessage", new SendMessage());
         return "send_message";
     }
 
@@ -33,7 +33,7 @@ public class MessageController {
         UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
         User userFrom = principal.getUser();
         Message message = messageService.sendMessage(userFrom, recipient);
-        model.addAttribute("recipient", new SendMessage());
+        model.addAttribute("sendMessage", new SendMessage());
         return "send_message";
     }
 
@@ -43,7 +43,7 @@ public class MessageController {
         UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
         User userRecipient = principal.getUser();
         Message message = messageService.getLastMessage(userRecipient);
-        if (message.getId().equals(idOfPreviousMessage) || message == null){
+        if (message == null || message.getId().equals(idOfPreviousMessage)){
             return null;
         }
         return new SendMessage(message);

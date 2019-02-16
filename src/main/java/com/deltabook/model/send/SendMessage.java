@@ -29,15 +29,7 @@ public class SendMessage {
     }
 
     public void setBody(String body) {
-        body = body;
-    }
-
-    public String getNickanme() {
-        return nickName;
-    }
-
-    public void setNickanme(String nickanme) {
-        nickName = nickanme;
+        this.body = body;
     }
 
     public Timestamp getTimestamp() {
@@ -54,5 +46,13 @@ public class SendMessage {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 }
