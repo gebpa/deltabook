@@ -1,18 +1,23 @@
 function CheckAndGetMessage() {
-    $idPrevMes = -1;
     $.ajax({
         type : "GET",
         contentType : "application/json",
         url: 'message_for_current_user',
+        data: {'idOfPreviousMessage': '-1'},
         dataType : 'json',
-        success: function(result) {
-            $.each(result.data, function(message){
-                var message = "<p>  New message is" + ", message.getBody() " +"</p>" + "<p> Sender is " + message.getSenderID().getLogin() + "</p>";
-                $('#popup.popuptext').append(message)
-            });
-            var col=document.getElementById("MessageForCurrentUser");
+        success: function (result) {
+        var SendMessage = "<p>  New message is" + result.body  + "</p>" + "<p> Sender is " + result.nickanme + "</p>";
+            $('#MessageForCurrentUser').html(SendMessage);
+
+            var col = document.getElementById("MessageForCurrentUser");
             col.classList.toggle("show");
+            idOfPreviousMessage = result.id;
+
+        },
+        error: function(){
+            alert('error!');
         }
+
     });
 };
 setInterval(CheckAndGetMessage,1000);
