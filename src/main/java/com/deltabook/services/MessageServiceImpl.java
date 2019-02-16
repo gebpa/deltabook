@@ -18,8 +18,6 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     MessageRepository messageRepository;
 
-    public int messageListSize = 0;
-
     public Message sendMessage(User userFrom, SendMessage sendMessage) {
         User userTo = userRepository.findUserByLogin(sendMessage.getNickanme());
         String messageBody = sendMessage.getBody();
@@ -28,27 +26,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Message findByRecipientIDOrderByCreatedAt(User recipientId) {
-        List<Message> messageList;
-        messageList = messageRepository.findByRecipientIDOrderByCreatedAt(recipientId);
-        //System.out.println(messageList.size());
-        if (messageListSize == messageList.size() && messageListSize == 0 ) {
-            System.out.println("Empty");
-            return null;
-        } else {
-            if (messageList.size() == 0)
-                return null;
-            messageListSize = messageList.size();
-            // System.out.println(messageListSize);
-            Message message;
-            if (messageList.size() != 0)
-                message = messageList.get(messageListSize - 1);
-            else
-                message = messageList.get(messageListSize);
-
-            return message;
-
-        }
-
+    public Message getLastMessage(User recipientId) {
+        return messageRepository.findFirstByRecipientIDOrderByCreatedAtDesc(recipientId);
     }
 }
