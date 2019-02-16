@@ -2,7 +2,7 @@ function CheckAndGetMessage() {
     $.ajax({
         type : "GET",
         contentType : "application/json",
-        url: 'message_for_current_user',
+        url: 'get_last_message',
         data: {'idOfPreviousMessage': '-1'},
         dataType : 'json',
         success: function (result) {
@@ -15,7 +15,6 @@ function CheckAndGetMessage() {
 
         },
         error: function(){
-            alert('error!');
         }
 
     });

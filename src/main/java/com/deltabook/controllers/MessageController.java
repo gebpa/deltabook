@@ -37,7 +37,7 @@ public class MessageController {
         return "send_message";
     }
 
-    @RequestMapping(value = "/message_for_current_user",method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/get_last_message",method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public SendMessage getLastMessage(Authentication authentication, @RequestParam("idOfPreviousMessage") Long idOfPreviousMessage){
         UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
