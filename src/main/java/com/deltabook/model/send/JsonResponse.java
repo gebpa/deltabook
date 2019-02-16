@@ -1,15 +1,18 @@
 package com.deltabook.model.send;
 
+import com.deltabook.model.Message;
+
+import java.util.List;
+
 public class JsonResponse {
-    public class Response {
         private String status;
         private Object data;
 
-        public Response(){
+        public JsonResponse(){
 
         }
 
-        public Response(String status, Object data){
+        public JsonResponse(String status, Object data){
             this.status = status;
             this.data = data;
         }
