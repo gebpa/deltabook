@@ -39,7 +39,6 @@ a:hover, a:active {
 
 /* The actual popup (appears on top) */
 .popup .popuptext {
-    visibility: hidden;
     width: 160px;
     background-color: #555;
     color: #fff;
@@ -50,11 +49,12 @@ a:hover, a:active {
     z-index: 1;
     bottom: 20px;
     left: 1%;
+    display: none;
 }
 
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
 .popup .show {
-    visibility: visible;
+    display: block;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s
 }

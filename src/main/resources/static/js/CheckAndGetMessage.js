@@ -1,4 +1,5 @@
 var old_message_id = -1;
+var MessageText = "";
 function CheckAndGetMessage() {
     $.ajax({
         type : "GET",
@@ -12,6 +13,7 @@ function CheckAndGetMessage() {
             $('#MessageForCurrentUser').html(SendMessage);
             var col = document.getElementById("MessageForCurrentUser");
             col.classList.toggle("show");
+            MessageText = SendMessage;
         },
         error: function(){
             return;
@@ -19,4 +21,15 @@ function CheckAndGetMessage() {
 
     });
 };
+
 setInterval(CheckAndGetMessage,1000);
+
+function Check() {
+    //alert($(MessageForCurrentUser).is(":visible"));
+    if ($(MessageForCurrentUser).is(":hidden") && MessageText != "") {
+        $('#MessageForCurrentUser').html(MessageText);
+        var col = document.getElementById("MessageForCurrentUser");
+        col.classList.toggle("show");
+    }
+}
+setInterval(Check,2000);
