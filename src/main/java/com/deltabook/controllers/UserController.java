@@ -20,13 +20,13 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/upload_avatar")
-    public String UploadAvatar(Model model) {
+    public String uploadAvatar(Model model) {
         model.addAttribute("msg", "Waiting for upload ");
         return "upload_avatar";
     }
 
     @PostMapping("/upload_avatar")
-    public String UploadAvatarSave(Authentication authentication, Model model, @RequestParam("files") MultipartFile file) {
+    public String uploadAvatarSave(Authentication authentication, Model model, @RequestParam("files") MultipartFile file) {
         UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
         User user = principal.getUser();
         try {

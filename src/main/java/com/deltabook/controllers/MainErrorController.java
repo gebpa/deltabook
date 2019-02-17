@@ -18,7 +18,7 @@ public class MainErrorController implements ErrorController {
     }
 
     @RequestMapping("/error_auth")
-    public String AuthError() {
+    public String authError() {
         return "error_auth";
     }
 }
