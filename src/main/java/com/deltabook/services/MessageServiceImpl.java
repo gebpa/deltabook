@@ -45,8 +45,11 @@ public class MessageServiceImpl implements MessageService {
         Set<User> setOfUsers = new HashSet<>();
         List<Message> messageList = messageRepository.findByRecipientIDOrSenderIDOrderByCreatedAt(user, user);
         for (Message msg : messageList) {
-            setOfUsers.add(msg.getSenderID());
+            if (msg.getSenderID().getLogin().equals(user.getLogin()))
+                setOfUsers.add(msg.getRecipientID());
+            else setOfUsers.add(msg.getSenderID());
         }
+
         return new ArrayList<>(setOfUsers);
     }
 
