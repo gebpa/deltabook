@@ -2,7 +2,10 @@ package com.deltabook.services;
 
 import com.deltabook.model.User;
 import com.deltabook.model.send.SendChangeUser;
+import com.deltabook.model.send.SendSearchUser;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -13,4 +16,5 @@ public interface UserService {
     User uploadAvatar(User user,  MultipartFile file) throws Exception;
     void changeLastNameUser(SendChangeUser SendChangeUser);
     void deleteUserWithChoose(SendChangeUser SendChangeUser, String action);
+    List<User> getUserByNameSurnameOrNickname(SendSearchUser SendSearchUser);
 }

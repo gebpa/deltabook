@@ -1,6 +1,7 @@
 package com.deltabook.controllers;
 
 import com.deltabook.model.User;
+import com.deltabook.model.send.SendSearchUser;
 import com.deltabook.security.details.UserDetailsImpl;
 import com.deltabook.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -40,7 +43,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{nickname}")
-    public ModelAndView GenerateUserPsge(@PathVariable String nickname) {
+    public ModelAndView generateUserPsge(@PathVariable String nickname) {
         ModelAndView model = new ModelAndView();
         model.addObject("nickname", nickname);
         User user = userService.getUserByLogin(nickname);
@@ -56,4 +59,22 @@ public class UserController {
         model.setViewName("user_page");
         return model;
     }
+    @GetMapping("/search")
+    public String searchUser(Model model) {
+        model.addAttribute("SendSearchUser", new SendSearchUser());
+        return "search";
+    }
+    @PostMapping("/search")
+    public String searchUserByNameSurnameOrNickname(Authentication authentication, Model model, @ModelAttribute SendSearchUser SendSearchUser) {
+        List<User> UserList = null;
+        UserList= userService.getUserByNameSurnameOrNickname(SendSearchUser);
+        if(UserList != null)
+        model.addAttribute("HaveSearchResult", true );
+        else
+            model.addAttribute("HaveSearchResult", false );
+        model.addAttribute("UserList", UserList);
+        model.addAttribute("SendSearchUser", new SendSearchUser());
+        return "search";
+    }
+
 }

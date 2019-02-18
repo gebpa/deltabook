@@ -3,6 +3,7 @@ package com.deltabook.services;
 
 import com.deltabook.model.User;
 import com.deltabook.model.send.SendChangeUser;
+import com.deltabook.model.send.SendSearchUser;
 import com.deltabook.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -86,5 +89,33 @@ public class UserServiceImpl implements UserService {
             }
             default: break;
         }
+    }
+
+    @Override
+    public List<User> getUserByNameSurnameOrNickname(SendSearchUser SendSearchUser) {
+        User user;
+        List<User> userList = new ArrayList<User>();
+        if(SendSearchUser.getNickname() != "") {
+            user = getUserByLogin(SendSearchUser.getNickname());
+            if(user != null) {
+                userList.add(user);
+                return userList;
+            }
+            else
+            return null;
+        }
+        if(SendSearchUser.getName() != "" && SendSearchUser.getSurname() != "" ) {
+            userList = userRepository.findByLastNameAndFirstName(SendSearchUser.getSurname(), SendSearchUser.getName() );
+            return userList;
+        }
+        if(SendSearchUser.getName() == "" && SendSearchUser.getSurname() != "" ) {
+            userList = userRepository.findByLastName(SendSearchUser.getSurname());
+            return userList;
+        }
+        if(SendSearchUser.getName() != "" && SendSearchUser.getSurname() == "" ) {
+            userList = userRepository.findByFirstName(SendSearchUser.getName());
+            return userList;
+        }
+        return null;
     }
 }
