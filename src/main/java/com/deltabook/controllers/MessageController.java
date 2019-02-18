@@ -60,7 +60,7 @@ public class MessageController {
         UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
         User userRecipient = principal.getUser();
         User userSender = null;
-        sendersList = messageService.findMessagesByRecipientID(userRecipient);
+        sendersList = messageService.getAllChatCompanionsOfUser(userRecipient);
         for (User user : sendersList) {
             userSender = user;
             messageList = messageService.getDialog(userRecipient,userSender );
