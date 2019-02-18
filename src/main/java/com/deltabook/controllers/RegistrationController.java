@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class RegistrationController {
+
     private final int WEAK_STRENTH = 1;
     private final int FEAR_STRENGTH = 5;
     private final int STRONG_STRENGTH = 7;
@@ -27,9 +28,10 @@ public class RegistrationController {
         userService.registerUser(insertedObject);
         return "login";
     }
+
     @GetMapping(value = "/checkStrength", produces = {"text/html; charset-UTF-8"})
     public @ResponseBody
-    String checkString(@RequestParam String password) {
+    String checkPassword(@RequestParam String password) {
         if(password.length() >= WEAK_STRENTH & password.length() < FEAR_STRENGTH  )
             return "слабый";
         else if(password.length() >= FEAR_STRENGTH & password.length() < STRONG_STRENGTH)

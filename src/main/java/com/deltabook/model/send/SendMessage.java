@@ -1,23 +1,58 @@
 package com.deltabook.model.send;
 
+import com.deltabook.model.Message;
+
+import java.sql.Timestamp;
+
 public class SendMessage {
+
+    public SendMessage() {
+    }
+
+    public SendMessage(Message message){
+        this.id = message.getId();
+        this.body = message.getBody();
+        this.timestamp =message.getCreatedAt();
+        this.nickName =message.getSenderID().getLogin();
+    }
+
+    private Long id;
+
+    private String body;
+
+    private String nickName;
+
+    private Timestamp timestamp;
+
     public String getBody() {
-        return Body;
+        return body;
     }
 
     public void setBody(String body) {
-        Body = body;
+        this.body = body;
     }
 
-    private String Body;
-
-    public String getNickanme() {
-        return Nickanme;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
-    public void setNickanme(String nickanme) {
-        Nickanme = nickanme;
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
-    private String Nickanme;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 }

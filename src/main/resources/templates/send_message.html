@@ -9,11 +9,11 @@
 <img src="../static/images/logo.png" width="419" th:src="@{images/logo.png}"/>
 <h1>Отправка сообщения</h1>
 <a href="/">Назад в панель пользователя</a>
-<form action="#" th:action="@{/enter_message_data}" th:object="${recipient}" method="post">
+<form action="#" th:action="@{/send_message}" th:object="${sendMessage}" method="post">
     <p>Friend NickName:</p>
-    <input type="text" th:field="*{Nickanme}" />
+    <input type="text" th:field="*{nickName}" />
     <p>Body:</p>
-    <input type="text" th:field="*{Body}" />
+    <input type="text" th:field="*{body}" />
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
 </body>
