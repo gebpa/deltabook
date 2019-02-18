@@ -12,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 public class MessageController {
@@ -47,5 +50,23 @@ public class MessageController {
             return null;
         }
         return new SendMessage(message);
+    }
+
+    @GetMapping("/dialogs")
+    String dialogs(Authentication authentication, Model model) {
+        List<User> sendersList = new ArrayList<User>();
+        List<Message> messageList = new ArrayList<Message>();
+        List<List<Message>> dialogsList = new ArrayList<List<Message>>();
+        UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
+        User userRecipient = principal.getUser();
+        User userSender = null;
+        sendersList = messageService.findMessagesByRecipientID(userRecipient);
+        for (User user : sendersList) {
+            userSender = user;
+            messageList = messageService.getDialog(userRecipient,userSender );
+            dialogsList.add(messageList);
+        }
+        model.addAttribute("dialogsList", dialogsList);
+        return "dialogs";
     }
 }

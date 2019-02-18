@@ -7,7 +7,11 @@ import com.deltabook.repositories.MessageRepository;
 import com.deltabook.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -29,4 +33,26 @@ public class MessageServiceImpl implements MessageService {
     public Message getLastUnreadMessage(User recipientId) {
         return messageRepository.findFirstByRecipientIDAndIsReadFalseOrderByCreatedAtDesc(recipientId);
     }
+
+    @Override
+    public List<Message> getDialog(User recipientId, User senderId) {
+        List<Message> messageList = new ArrayList<Message>();
+        messageList = messageRepository.findMessagesBySenderIDAndRecipientID(senderId, recipientId);
+        return messageList;
+    }
+
+    @Override
+    public List<User> findMessagesByRecipientID(User senderId) {
+        List<User> sendersList = new ArrayList<User>();
+        List<Message> messageList = new ArrayList<Message>();
+        messageList = messageRepository.findByRecipientID(senderId);
+        for (Message msg : messageList) {
+            sendersList.add(msg.getSenderID());
+        }
+        Set<User> set = new HashSet<>(sendersList);
+        sendersList.clear();
+        sendersList.addAll(set);
+        return sendersList;
+    }
+
 }

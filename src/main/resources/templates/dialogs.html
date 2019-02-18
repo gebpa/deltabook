@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+    <link href="../static/css/friends.css" th:href="@{/css/friends.css}" rel="stylesheet" />
+    <title>Dialogs</title>
+</head>
+<body>
+<img src="../static/images/logo.png" width="419" th:src="@{images/logo.png}"/>
+<h2>Диалоги</h2>
+<a href="/">Назад в панель пользователя</a>
+<table cellspacing="0" cellpadding="0">
+    <span th:each="dialogsList : ${dialogsList}">
+        <span th:each="message : ${dialogsList}">
+    <tr>
+        <td th:text="${message?.senderID.firstName} + ' ' + ${message?.senderID.lastName}">Nickname</td>
+    </tr>
+            <tr>
+                        <td th:text="${message?.body}">Body</td>
+            </tr>
+        </span>
+        <td colspan=3>&nbsp;</td>
+    </span>
+</table>
+</body>
+</html>
