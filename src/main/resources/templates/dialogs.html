@@ -14,7 +14,7 @@
     <span th:each="dialogsList : ${dialogsList}">
         <span th:each="message : ${dialogsList}">
     <tr>
-        <td th:text="${message?.senderID.firstName} + ' ' + ${message?.senderID.lastName}">Nickname</td>
+         <td><a class="user_link" th:href="${message?.senderID.login}" th:text="${message?.senderID.firstName} + ' ' + ${message?.senderID.lastName}" target="_blank" /></td>
     </tr>
             <tr>
                         <td th:text="${message?.body}">Body</td>
