@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+    <link href="../static/css/friends.css" th:href="@{/css/friends.css}" rel="stylesheet" />
+    <title>Add user</title>
+</head>
+<body>
+<img src="../static/images/logo.png" width="419" th:src="@{images/logo.png}"/>
+<h1>Поиск людей</h1>
+<a href="/">Назад в панель пользователя</a>
+<h2>Поиск по имени, фамилии и нику</h2>
+<form action="#" th:action="@{/search}" th:object="${SendSearchUser}" method="post">
+    <p>Person Name:</p>
+    <input type="text" th:field="*{Name}" />
+    <p>Person Surname:</p>
+    <input type="text" th:field="*{Surname}" />
+    <p>Person Nickname:</p>
+    <input type="text" th:field="*{Nickname}" />
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+<div th:if="${HaveSearchResult} == true">
+    <table border="1">
+        <tr>
+            <th>User id</th>
+            <th>firstName</th>
+            <th>lastName</th>
+            <th>Nickname</th>
+        </tr>
+        <tr th:each="user : ${UserList}">
+            <td th:text="${user?.id}">id</td>
+            <td th:text="${user?.firstName}">firstName</td>
+            <td th:text="${user?.lastName}">lastName</td>
+            <td><a th:href="${user?.login}" th:text="${user?.login}" target="_blank" /></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
