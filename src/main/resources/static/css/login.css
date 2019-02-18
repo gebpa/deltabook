@@ -72,6 +72,6 @@ html {
 .img_main{
     position: absolute;
     display: flex;
-    right: 1%;
+    left: 40%;
     top: 5%;
 }
