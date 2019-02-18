@@ -28,6 +28,7 @@ public class AdminController {
         model.addAttribute("SendChangeUser", new SendChangeUser());
         return "main_admin";
     }
+    @RequestMapping("/delete_user")
     public String deleteUser(Authentication authentication, Model model, @ModelAttribute SendChangeUser SendChangeUser, @RequestParam(value="action", required=true) String action) {
         model.addAttribute("SendChangeUser", new SendChangeUser());
         userService.deleteUserWithChoose(SendChangeUser, action);
