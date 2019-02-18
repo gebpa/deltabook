@@ -2,6 +2,7 @@ package com.deltabook.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 import static com.deltabook.model.Roles.ROLE_USER;
 
@@ -127,4 +128,18 @@ public class User {
     @OneToMany(mappedBy = "recipientID", cascade = CascadeType.ALL)
     private List<Message> messages_recipient;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(login, user.login) &&
+                Objects.equals(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(login, password);
+    }
 }
