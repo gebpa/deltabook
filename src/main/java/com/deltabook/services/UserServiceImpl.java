@@ -112,6 +112,10 @@ public class UserServiceImpl implements UserService {
             userList = userRepository.findByLastName(SendSearchUser.getSurname());
             return userList;
         }
+        if(SendSearchUser.getName() != "" && SendSearchUser.getSurname() == "" ) {
+            userList = userRepository.findByFirstName(SendSearchUser.getName());
+            return userList;
+        }
         return null;
     }
 }
