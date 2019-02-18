@@ -109,11 +109,4 @@ a:hover, a:active {
     to {opacity:1 ;}
 }
 
-td.break {
-    float: left;
-}
-tr {
-    display: block
-}
-
 table {border: none;}
