@@ -36,23 +36,18 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<Message> getDialog(User recipientId, User senderId) {
-        List<Message> messageList = new ArrayList<Message>();
-        messageList = messageRepository.findMessagesBySenderIDAndRecipientID(senderId, recipientId);
+        List<Message> messageList = messageRepository.findMessagesBetweenTwoUsers(senderId, recipientId);
         return messageList;
     }
 
     @Override
-    public List<User> findMessagesByRecipientID(User senderId) {
-        List<User> sendersList = new ArrayList<User>();
-        List<Message> messageList = new ArrayList<Message>();
-        messageList = messageRepository.findByRecipientID(senderId);
+    public List<User> getAllChatCompanionsOfUser(User user) {
+        Set<User> setOfUsers = new HashSet<>();
+        List<Message> messageList = messageRepository.findByRecipientIDOrSenderIDOrderByCreatedAt(user, user);
         for (Message msg : messageList) {
-            sendersList.add(msg.getSenderID());
+            setOfUsers.add(msg.getSenderID());
         }
-        Set<User> set = new HashSet<>(sendersList);
-        sendersList.clear();
-        sendersList.addAll(set);
-        return sendersList;
+        return new ArrayList<>(setOfUsers);
     }
 
 }

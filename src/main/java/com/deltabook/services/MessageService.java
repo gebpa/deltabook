@@ -14,6 +14,6 @@ public interface MessageService {
 
     List<Message> getDialog(User recipientId, User senderId);
 
-    List <User> findMessagesByRecipientID(User senderId);
+    List <User> getAllChatCompanionsOfUser(User user);
 
 }
