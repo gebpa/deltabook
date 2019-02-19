@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
     <link href="../static/css/friends.css" th:href="@{/css/friends.css}" rel="stylesheet" />
-    <title>Add user</title>
+    <title>Friends</title>
 </head>
 <body>
 <img src="../static/images/logo.png" width="419" th:src="@{images/logo.png}"/>
@@ -24,6 +24,27 @@
     <input type="submit" name="action" value="decline" />
     <input type="submit" name="action" value="accept" />
 </form>
+<h2>Список друзей</h2>
+<table border="1">
+    <tr>
+        <th>login</th>
+        <th>first name</th>
+        <th>last name</th>
+        <th>image</th>
+    </tr>
+    <tr th:each="friend : ${Friends}">
+        <td><a th:href="${friend.login}" th:text="${friend.login}" target="_blank" /></td>
+        <td><a th:text="${friend?.firstName}"/></td>
+        <td><a th:text="${friend?.lastName}"/></td>
+        <td><img class="reduced_avatar" th:src="*{'data:image/png;base64,'+friend.picture}" alt="" /></td>
+    </tr>
+    <tr th:each="contact : ${FriendsFrom}">
+        <td th:text="${contact?.id}">id</td>
+        <td><a th:href="${contact?.friendToId.login}" th:text="${contact?.friendToId.login}" target="_blank" /></td>
+        <td th:text="${contact?.createdAt}">createdAt</td>
+        <td th:text="${contact?.requestMessage}">requestMessage</td>
+    </tr>
+</table>
 <h2>Пропущенные заявки в друзья</h2>
 <table border="1">
     <tr>
