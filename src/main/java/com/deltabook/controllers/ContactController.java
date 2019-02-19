@@ -33,10 +33,10 @@ public class ContactController {
         model.addAttribute("contactReceivedList", contactListTo);
         List<Contact> contactListFrom = contactService.getAllRequestsFromUser(userTo);
         model.addAttribute("contactSentList", contactListFrom);
-        List<Contact> FriendsTo = contactService.getFriendsTo(userTo);
-        List<Contact> FriendsFrom = contactService.getFriendsFrom(userTo);
-        model.addAttribute("FriendsTo", FriendsTo);
-        model.addAttribute("FriendsFrom", FriendsFrom);
+        List<Contact> friendsTo = contactService.getFriendsTo(userTo);
+        List<Contact> friendsFrom = contactService.getFriendsFrom(userTo);
+        model.addAttribute("FriendsTo", friendsTo);
+        model.addAttribute("FriendsFrom", friendsFrom);
         return "friends";
     }
     @PostMapping("/send_friend_request")

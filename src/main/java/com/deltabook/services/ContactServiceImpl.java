@@ -32,13 +32,13 @@ public class ContactServiceImpl implements ContactService{
     }
 
     public List<Contact> getFriendsTo(User user) {
-        List<Contact> FriendsListTo = contactRepository.findByIsAcceptedAndFriendToId(true, user);
-        return FriendsListTo;
+        List<Contact> friendsListTo = contactRepository.findByIsAcceptedAndFriendToId(true, user);
+        return friendsListTo;
     }
 
     public List<Contact> getFriendsFrom(User user) {
-        List<Contact> FriendsListFrom = contactRepository.findByIsAcceptedAndFriendFromId(true, user);
-        return FriendsListFrom;
+        List<Contact> friendsListFrom = contactRepository.findByIsAcceptedAndFriendFromId(true, user);
+        return friendsListFrom;
     }
 
 
