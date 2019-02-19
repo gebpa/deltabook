@@ -36,7 +36,7 @@
         <td><a th:href="${friend.login}" th:text="${friend.login}" target="_blank" /></td>
         <td><a th:text="${friend?.firstName}"/></td>
         <td><a th:text="${friend?.lastName}"/></td>
-        <td><img id="avatar" th:src="*{'data:image/png;base64,'+friend.picture}" alt="" /></td>
+        <td><img class="reduced_avatar" th:src="*{'data:image/png;base64,'+friend.picture}" alt="" /></td>
     </tr>
     <tr th:each="contact : ${FriendsFrom}">
         <td th:text="${contact?.id}">id</td>
