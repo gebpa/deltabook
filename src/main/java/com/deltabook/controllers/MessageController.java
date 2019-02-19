@@ -69,4 +69,14 @@ public class MessageController {
         model.addAttribute("dialogsList", dialogsList);
         return "dialogs";
     }
+
+    @RequestMapping(value = "/dialog/{recipient}/{sender}")
+    public String generateDialog(@PathVariable String recipient, @PathVariable String sender, Model model) {
+        List<Message> messageList = new ArrayList<Message>();
+        User userRecipient = userService.getUserByLogin(recipient);
+        User userSender = userService.getUserByLogin(sender);
+        messageList = messageService.getDialog(userRecipient,userSender );
+        model.addAttribute("messageList", messageList);
+        return "dialog_between_users";
+    }
 }
