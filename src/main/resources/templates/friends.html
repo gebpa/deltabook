@@ -27,16 +27,16 @@
 <h2>Список друзей</h2>
 <table border="1">
     <tr>
-        <th>Contact id</th>
-        <th>friend Nickname</th>
-        <th>createdAt</th>
-        <th>requestMessage</th>
+        <th>login</th>
+        <th>first name</th>
+        <th>last name</th>
+        <th>image</th>
     </tr>
-    <tr th:each="contact : ${FriendsTo}">
-        <td th:text="${contact?.id}">id</td>
-        <td><a th:href="${contact?.friendFromId.login}" th:text="${contact?.friendFromId.login}" target="_blank" /></td>
-        <td th:text="${contact?.createdAt}">createdAt</td>
-        <td th:text="${contact?.requestMessage}">requestMessage</td>
+    <tr th:each="friend : ${Friends}">
+        <td><a th:href="${friend.login}" th:text="${friend.login}" target="_blank" /></td>
+        <td><a th:text="${friend?.firstName}"/></td>
+        <td><a th:text="${friend?.lastName}"/></td>
+        <td><img id="avatar" th:src="*{'data:image/png;base64,'+friend.picture}" alt="" /></td>
     </tr>
     <tr th:each="contact : ${FriendsFrom}">
         <td th:text="${contact?.id}">id</td>

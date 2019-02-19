@@ -2,10 +2,12 @@ package com.deltabook.services;
 
 import com.deltabook.model.Contact;
 import com.deltabook.model.User;
+import com.deltabook.model.send.SendFriend;
 import com.deltabook.repositories.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,14 +33,17 @@ public class ContactServiceImpl implements ContactService{
         return contactRepository.findByIsAcceptedAndFriendToId(false,user);
     }
 
-    public List<Contact> getFriendsTo(User user) {
-        List<Contact> friendsListTo = contactRepository.findByIsAcceptedAndFriendToId(true, user);
-        return friendsListTo;
-    }
-
-    public List<Contact> getFriendsFrom(User user) {
-        List<Contact> friendsListFrom = contactRepository.findByIsAcceptedAndFriendFromId(true, user);
-        return friendsListFrom;
+    public List<SendFriend> getAllFriends(User user) {
+        List<SendFriend> friends = new ArrayList<>();
+        List<Contact> requestTo = contactRepository.findByIsAcceptedAndFriendFromId(true, user);
+        for (Contact contact : requestTo){
+            friends.add(new SendFriend(contact.getFriendToId()));
+        }
+        List<Contact> requestFrom = contactRepository.findByIsAcceptedAndFriendToId(true, user);
+        for (Contact contact : requestFrom){
+            friends.add(new SendFriend(contact.getFriendFromId()));
+        }
+        return friends;
     }
 
 

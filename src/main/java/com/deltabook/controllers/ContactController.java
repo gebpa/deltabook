@@ -3,6 +3,7 @@ package com.deltabook.controllers;
 
 import com.deltabook.model.Contact;
 import com.deltabook.model.User;
+import com.deltabook.model.send.SendFriend;
 import com.deltabook.model.send.SendFriendRequest;
 import com.deltabook.security.details.UserDetailsImpl;
 import com.deltabook.services.ContactService;
@@ -33,10 +34,8 @@ public class ContactController {
         model.addAttribute("contactReceivedList", contactListTo);
         List<Contact> contactListFrom = contactService.getAllRequestsFromUser(userTo);
         model.addAttribute("contactSentList", contactListFrom);
-        List<Contact> friendsTo = contactService.getFriendsTo(userTo);
-        List<Contact> friendsFrom = contactService.getFriendsFrom(userTo);
-        model.addAttribute("FriendsTo", friendsTo);
-        model.addAttribute("FriendsFrom", friendsFrom);
+        List<SendFriend> friends = contactService.getAllFriends(userTo);
+        model.addAttribute("Friends", friends);
         return "friends";
     }
     @PostMapping("/send_friend_request")
