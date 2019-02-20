@@ -26,7 +26,7 @@
            <img class="very_reduced_avatar" th:src="*{'data:image/png;base64,'+recipientPic}" alt="" />
                 </div>
             </div>
-         <a class="user_link" th:href="${message?.senderID.login}" th:text="${message?.senderID.firstName} + ' ' + ${message?.senderID.lastName}" /></td>
+         <a class="user_link" th:href="'/'+${message?.senderID.login}" th:text="${message?.senderID.firstName} + ' ' + ${message?.senderID.lastName}" /></td>
     </tr>
             <tr>
                         <td th:text="${message?.body}">Body</td>
