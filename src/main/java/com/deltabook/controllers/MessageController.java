@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.Base64;
@@ -71,26 +72,23 @@ public class MessageController {
         return "dialogs";
     }
 
-    @RequestMapping(value = "/dialog/{recipient}/{sender}")
-    public String generateDialog(@PathVariable String recipient, @PathVariable String sender, Model model) {
-        List<Message> messageList = new ArrayList<Message>();
-        User userRecipient = userService.getUserByLogin(recipient);
-        User userSender = userService.getUserByLogin(sender);
-        messageList = messageService.getDialog(userRecipient,userSender );
-        String recipientLogin = userRecipient.getLogin();
-        String senderLogin = userSender.getLogin();
-        model.addAttribute("messageList", messageList);
-        model.addAttribute("recipientLogin", recipientLogin);
-        model.addAttribute("senderLogin", senderLogin);
-        String recipientPic = "", senderPic = " ";
-        if (userRecipient.getPicture() != null){
-            recipientPic = Base64.getEncoder().encodeToString(userRecipient.getPicture());
-        }
-        if (userSender.getPicture() != null){
-            senderPic = Base64.getEncoder().encodeToString(userSender.getPicture());
-        }
-        model.addAttribute("recipientPic", recipientPic);
-        model.addAttribute("senderPic", senderPic);
+    @RequestMapping(value = "dialog/{recipient}/{sender}", method=RequestMethod.GET)
+    public String generateDialog(@PathVariable String recipient, @PathVariable String sender, Authentication authentication, Model model) {
+        Model model_generated = messageService.generatedDialogBetweenUsers( recipient, sender,authentication, model);
         return "dialog_between_users";
+    }
+
+    @PostMapping("/send_message_in_dialog")
+    ModelAndView sendMessageInDialog(Authentication authentication, @ModelAttribute SendMessage recipient) {
+        UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
+        User userFrom = principal.getUser();
+        Message message = messageService.sendMessage(userFrom, recipient);
+        String url = "redirect:/dialog/";
+        url += recipient.getNickName();
+        url += "/";
+        url += userFrom.getLogin();
+        ModelAndView modelAndView = new ModelAndView(url);
+        modelAndView.addObject("sendMessage", new SendMessage());
+        return modelAndView;
     }
 }
