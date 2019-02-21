@@ -17,13 +17,6 @@
     <input type="text" th:field="*{requestMessage}" />
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
-<h2>Подтверждение отклонение/добавления в друзья</h2>
-<form action="#" th:action="@{/proceed_friend_request}" th:object="${sendFriendRequest}" method="post">
-    <p>Friend NickName:</p>
-    <input type="text" th:field="*{friendNickname}" />
-    <input type="submit" name="action" value="decline" />
-    <input type="submit" name="action" value="accept" />
-</form>
 <h2>Список друзей</h2>
 <table border="1">
     <tr>
@@ -46,12 +39,20 @@
         <th>friend Nickname</th>
         <th>createdAt</th>
         <th>requestMessage</th>
+        <th>isAccepted</th>
     </tr>
     <tr th:each="contact : ${contactReceivedList}">
         <td th:text="${contact?.id}">id</td>
         <td><a th:href="${contact?.friendFromId.login}" th:text="${contact?.friendFromId.login}" target="_blank" /></td>
         <td th:text="${contact?.createdAt}">createdAt</td>
         <td th:text="${contact?.requestMessage}">requestMessage</td>
+        <form action="#" th:action="@{/proceed_friend_request}" th:object="${sendFriendRequest}" method="post">
+        <td>
+            <input type="hidden"  name="friendNickname" th:value="${contact?.friendFromId.login}" />
+            <input type="submit" name="action" value="Y" />
+            <input type="submit" name="action" value="N" />
+        </td>
+        </form>
     </tr>
 </table>
 <h2>Исходящие заявки в друзья</h2>

@@ -65,9 +65,9 @@ public class ContactServiceImpl implements ContactService{
 
     @Override
     public void proceedFriendRequest(User fromUser, User toUser, String action) {
-        if(action.equals("decline"))
+        if(action.equals("N"))
             declineRequest(fromUser, toUser);
-        if(action.equals("accept"))
+        if(action.equals("Y") )
             confirmRequest(fromUser, toUser);
         return;
     }
