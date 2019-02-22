@@ -11,7 +11,7 @@
 <body>
 <a href="/">Назад в панель пользователя</a>
 <div class = "center_message">
-    <img src="../static/images/Delta1.png" width="419" th:src="@{images/Delta1.png}"/>
+    <img src="../static/images/Delta1.png" th:src="@{images/Delta1.png}"/>
     <br> <br>
 <h1>Поиск людей</h1>
 <form action="#" th:action="@{/search}" th:object="${SendSearchUser}" method="post">
@@ -20,7 +20,7 @@
     <input class="form-control input-lg" type="text" th:field="*{Surname}" placeholder="Фамилия пользователя"/>
     <input class="form-control input-lg" type="text" th:field="*{Nickname}" placeholder="Никнейм пользователя"/>
     </div>
-    <p><input class="btn btn-warning" type="submit"  value="Отправить" /> <input class="btn btn-danger" type="reset" value="Удалить" /></p>
+    <p><input class="btn btn-warning" type="submit"  value="Найти" /> <input class="btn btn-danger" type="reset" value="Удалить" /></p>
 </form>
 <div th:if="${HaveSearchResult} == true">
     <table border="1">

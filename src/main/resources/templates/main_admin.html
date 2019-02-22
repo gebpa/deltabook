@@ -25,7 +25,8 @@
 <form action="#" th:action="@{/delete_user}" th:object="${SendChangeUser}" method="post">
     <div class = "form">
     <input class="form-control input-lg" type="text" th:field="*{NickName}" placeholder="Имя пользователя"/>
-        <input class="btn btn-danger" type="submit"  value="Удалить" />
+        <button class="btn btn-danger" type="submit" name="action" value="total_delete" > Удалить навсегда </button>
+        <button class="btn btn-danger" type="submit" name="action" value="temp_delete" > Временное удаление </button>
     </div>
 </form>
 </div>
