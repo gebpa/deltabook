@@ -76,23 +76,22 @@ public class MessageController {
         Model model_generated = messageService.generatedDialogBetweenUsers( recipient, sender,authentication, model);
         return "dialog_between_users";
     }
-
-    @PostMapping("/send_message_in_dialog")
-    ModelAndView sendMessageInDialog(Authentication authentication, @ModelAttribute SendMessage recipient) {
-        UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
-        User userFrom = principal.getUser();
-        Message message = messageService.sendMessage(userFrom, recipient);
-        String url = "redirect:/dialog/";
-        url += recipient.getNickName();
-        url += "/";
-        url += userFrom.getLogin();
-        ModelAndView modelAndView = new ModelAndView(url);
-        modelAndView.addObject("sendMessage", new SendMessage());
-        return modelAndView;
-    }
     @RequestMapping(value = "/get_updated_dialog",method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public List<SendMessage> getUpdatedDialog(Authentication authentication, @RequestParam("senderLogin") String  senderLogin, @RequestParam("recipientLogin") String  recipientLogin, Model model){
+    public List<SendMessage> getUpdatedDialog(Authentication authentication, @RequestParam(value="senderLogin", required=false) String  senderLogin, @RequestParam(value="recipientLogin", required=false) String  recipientLogin, Model model, @RequestParam(value="nickName", required=false) String nickName ,@RequestParam(value="body", required=false) String body ){
+        if(body != null && nickName != null ) {
+            SendMessage sendMessage = new SendMessage();
+            sendMessage.setBody(body);
+            sendMessage.setNickName(nickName);
+            UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
+            User sender = principal.getUser();
+            User recipient = userService.getUserByLogin(nickName);
+           // Message message = messageService.sendMessage(sender, recipient);
+            Message message = messageService.sendMessage(sender, sendMessage);
+            recipientLogin = recipient.getLogin();
+            senderLogin = sender.getLogin();
+
+        }
         List<Message> messageList = messageService.UpdatedDialogBetweenUsers( recipientLogin, senderLogin,authentication, model);
         model.addAttribute("messageList",messageList);
         List<SendMessage> sendMessageList = new ArrayList<SendMessage>();
