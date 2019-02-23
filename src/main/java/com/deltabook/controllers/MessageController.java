@@ -86,7 +86,6 @@ public class MessageController {
             UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
             User sender = principal.getUser();
             User recipient = userService.getUserByLogin(nickName);
-           // Message message = messageService.sendMessage(sender, recipient);
             Message message = messageService.sendMessage(sender, sendMessage);
             recipientLogin = recipient.getLogin();
             senderLogin = sender.getLogin();
