@@ -10,7 +10,9 @@ function CheckAndGetMessage() {
         data: {'idOfPreviousMessage':old_message_id},
         dataType : 'json',
         success: function (result) {
-            var SendMessage = "<p>  New message is: " + result.body  + "</p>" + "<p> Sender is " + result.nickName + "</p>";
+            var SendMessage = '<p><img class="very_reduced_avatar" src="data:image/png;base64,' + result.picture +  '" alt="" /></p>'  ;
+            SendMessage += '<p>' + result.nickName + '</p>' ;
+            SendMessage += '<p>' + result.body  + '</p>' ;
             old_message_id = result.id;
             $('#MessageForCurrentUser').html(SendMessage);
             var col = document.getElementById("MessageForCurrentUser");
@@ -32,7 +34,9 @@ function CheckAndGetFriendRequest() {
         data: {'idOfPreviousContact':old_friend_request_id},
         dataType : 'json',
         success: function (result) {
-            var ContactMesssge = "<p>  New friend request is: " + result.requestMessage  + "</p>" + "<p> Sender is " + result.friendNickname + "</p>";
+            var ContactMesssge = '<p><img class="very_reduced_avatar" src="data:image/png;base64,' + result.picture +  '" alt="" /></p>'  ;
+            ContactMesssge += "<p>  Запрос в друзья от  " + result.friendNickname + "</p>"  ;
+            ContactMesssge += "<p>" + result.requestMessage + "</p>" ;
             old_friend_request_id = result.id;
             $('#FriendRequestForCurrentUser').html(ContactMesssge);
             var col = document.getElementById("FriendRequestForCurrentUser");

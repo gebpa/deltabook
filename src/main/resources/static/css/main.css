@@ -18,3 +18,10 @@ input[type=text], input[type=password]  {
 }
 
 table {border: none;}
+
+.very_reduced_avatar {
+    height: auto;
+    width: auto;
+    max-width: 45px;
+    max-height: 45px;
+}

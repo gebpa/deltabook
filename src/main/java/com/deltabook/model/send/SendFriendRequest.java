@@ -1,7 +1,13 @@
 package com.deltabook.model.send;
 
 import com.deltabook.model.Contact;
+import org.apache.commons.io.FileUtils;
+import org.springframework.util.ResourceUtils;
+
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Base64;
 
 public class SendFriendRequest {
     private String requestMessage;
@@ -9,6 +15,7 @@ public class SendFriendRequest {
 
     private Timestamp timestamp;
     private Long id;
+    private String picture;
 
     public SendFriendRequest() {
     }
@@ -18,6 +25,17 @@ public class SendFriendRequest {
         this.requestMessage = contact.getRequestMessage();
         this.timestamp = contact.getCreatedAt();
         this.friendNickname =contact.getFriendFromId().getLogin();
+        if (contact.getFriendFromId().getPicture() != null) {
+            this.picture = Base64.getEncoder().encodeToString(contact.getFriendFromId().getPicture());
+        } else {
+            try {
+                File file = ResourceUtils.getFile("classpath:static/images/default-avatar.jpg");
+                byte[] fileContent = FileUtils.readFileToByteArray(file);
+                this.picture = Base64.getEncoder().encodeToString(fileContent);
+            } catch (IOException ex) {
+                this.picture = null;
+            }
+        }
     }
 
     public String getRequestMessage() {
@@ -50,5 +68,12 @@ public class SendFriendRequest {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }
