@@ -11,9 +11,9 @@
     <title>Registration - DeltaBook </title>
 </head>
 <body>
-    
+
 <script type="text/javascript">
-        var currentdata="";
+    var currentdata="";
     function doAjax() {
         $.ajax({
             url: 'checkStrength',
@@ -35,26 +35,26 @@
 
             },
             error: function () {
-                 return;
+                return;
             }
         });
     }
-        function Check() {
-            var col = document.getElementById("myPopup");
-            if ($(myPopup).is(":hidden") && currentdata != ""  ) {
-                col.style.display = 'block';
-                col.classList.toggle("show");
-            }
-            else {
-                if(currentdata == "") {
-                    col.style.display = 'none';
-                    return;
-                }
+    function Check() {
+        var col = document.getElementById("myPopup");
+        if ($(myPopup).is(":hidden") && currentdata != ""  ) {
+            col.style.display = 'block';
+            col.classList.toggle("show");
+        }
+        else {
+            if(currentdata == "") {
+                col.style.display = 'none';
+                return;
             }
         }
-        setInterval(Check,1000);
+    }
+    setInterval(Check,1000);
 </script>
-	
+
 <div class="container h-100">
     <div class="d-flex justify-content-center h-100">
         <div class="user_card">
@@ -65,43 +65,43 @@
             </div>
             <div class="d-flex justify-content-center form_container">
                 <form action="#" th:action="@{/registration}" th:object="${objectToFill}" method="post">
-                   
+
                     <h4 class="card-title mt-3 text-center">Регистрация на Deltabook</h4>
-                      <div class="input-group mb-2">
+                    <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                          <span class="input-group-text"> <i class="fa fa-at"></i> </span>
+                            <span class="input-group-text"> <i class="fa fa-at"></i> </span>
                         </div>
                         <input type="text" th:field="*{login}" class="form-control" id="inlineFormInputGroup" placeholder="Логин">
-                      </div>
-                    
+                    </div>
+
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                          <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                         </div>
                         <input type="text" th:field="*{firstName}"  class="form-control" id="inlineFormInputGroup" placeholder="Имя">
-                      </div>
-                    
+                    </div>
+
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                          <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                         </div>
                         <input type="text" th:field="*{lastName}"  class="form-control" id="inlineFormInputGroup" placeholder="Фамилия">
-                      </div>
-                    
+                    </div>
+
                     <div class="input-group mb-2">
                         <div class="input-group-append">
                             <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                         </div>
-                        
+
                         <input type="password"  id= "password" th:field="*{password}" th:onkeyup="doAjax()"   name="password" class="form-control input_pass" value="" placeholder="Пароль">
                         <div class="popup"><span class="popuptext" id="myPopup"><span id="strengthValue"></span></div>
                     </div>
-                   
+
                     <div class="d-flex justify-content-center mt-3 login_container">
                         <input type="submit" class="btn login_btn" value="Зарегестрироваться" />
                     </div>
                 </form>
-		</div>
+            </div>
         </div>
     </div>
 </div>
