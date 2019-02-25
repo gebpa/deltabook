@@ -62,13 +62,4 @@ public class ContactServiceImpl implements ContactService{
     public Contact getLastNotAcceptedRequest(User friendTo) {
         return contactRepository.findFirstByFriendToIdAndIsAcceptedFalseOrderByCreatedAtDesc(friendTo);
     }
-
-    @Override
-    public void proceedFriendRequest(User fromUser, User toUser, String action) {
-        if(action.equals("N"))
-            declineRequest(fromUser, toUser);
-        if(action.equals("Y") )
-            confirmRequest(fromUser, toUser);
-        return;
-    }
 }

@@ -60,12 +60,20 @@ public class ContactController {
         }
         return new SendFriendRequest(contact);
     }
-    @PostMapping("/proceed_friend_request")
-    String proccedRequest(Authentication authentication, Model model, @ModelAttribute SendFriendRequest send_req, @RequestParam(value="action", required=true) String action) {
+    @PostMapping("/accept_friend_request")
+    String acceptFriendRequest(Authentication authentication, Model model, @ModelAttribute SendFriendRequest send_req) {
         UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
         User userTo = principal.getUser();
         User userFrom = userService.getUserByLogin(send_req.getFriendNickname());
-        contactService.proceedFriendRequest(userFrom, userTo, action);
+        contactService.confirmRequest(userFrom, userTo);
+        return "main";
+    }
+    @PostMapping("/decline_friend_request")
+    String declineFriendRequest(Authentication authentication, Model model,@ModelAttribute SendFriendRequest send_req) {
+        UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
+        User userTo = principal.getUser();
+        User userFrom = userService.getUserByLogin(send_req.getFriendNickname());
+        contactService.declineRequest(userFrom, userTo);
         return "main";
     }
 }

@@ -11,6 +11,9 @@
 </head>
 
 <body>
+<th:block layout:fragment="script">
+    <script th:src="@{/js/FriendRequest.js}"></script>
+</th:block>
     <div th:insert="Header :: header"></div>
 
 
@@ -67,11 +70,11 @@
                                 <td><a th:href="${contact?.friendFromId.login}" th:text="${contact?.friendFromId.firstName}" target="_blank" /></td>
                                 <td th:text="${contact?.createdAt}"></td>
                                 <td th:text="${contact?.requestMessage}"></td>
-                                <form action="#" th:action="@{/proceed_friend_request}" th:object="${sendFriendRequest}" method="post">
+                                <form name="FriendRequestForm" th:object="${sendFriendRequest}" method="post">
                                     <td>
-                                        <input type="hidden" name="friendNickname" th:value="${contact?.friendFromId.login}" />
-                                        <input type="submit" name="action" value="Y" />
-                                        <input type="submit" name="action" value="N" />
+                                        <input type="hidden" id="friendNickname" name="friendNickname" th:value="${contact?.friendFromId.login}" />
+                                        <input type="submit" name="action" value="Y" onclick="AcceptRequest()" />
+                                        <input type="submit" name="action" value="N" onclick="DeclineRequest()" />
                                     </td>
                                 </form>
                             </tr>
