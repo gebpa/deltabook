@@ -10,8 +10,9 @@
     <title>Dialogs</title>
 </head>
 <body>
-<img src="../static/images/Delta1.png" width="419" th:src="@{images/Delta1.png}"/>
+
 <div th:insert="Header :: header"></div>
+<img src="../static/images/Delta1.png"  th:src="@{images/Delta1.png}"/>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
@@ -20,7 +21,7 @@
     <span th:each="dialogsList : ${dialogsList}">
         <span th:each="message,messageStat: ${dialogsList}" th:if="${messageStat.index == 0}" >
     <tr>
-         <td><a class="user_link" th:href="'dialog' + '/' + ${message?.senderID.login} + '/' +  ${message?.recipientID.login}" th:text="'Dialog with' + ' ' + ${message?.senderID.login} + ' ' + 'and' + ' ' + ${message?.recipientID.login}"/></td>
+         <td><a class="user_link" th:href="'dialog' + '/' + ${message?.senderID.login} + '/' +  ${message?.recipientID.login}" th:text="'Диалог между' + ' ' + ${message?.senderID.login} + ' ' + 'и' + ' ' + ${message?.recipientID.login}"/></td>
     </tr>
         </span>
     </span>
