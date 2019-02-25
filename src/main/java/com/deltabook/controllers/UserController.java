@@ -53,8 +53,9 @@ public class UserController {
             model.addObject("image", image_string);
             model.addObject("hasImage", true);
         }
-        else
+        else {
             model.addObject("hasImage", false);
+        }
         model.addObject("nickname", user.getLogin());
 
         model.addObject("name", user.getFirstName());
@@ -70,10 +71,12 @@ public class UserController {
     @PostMapping("/search")
     public String searchUserByNameSurnameOrNickname(Authentication authentication, Model model, @ModelAttribute SendSearchUser SendSearchUser) {
         List<User> userList = userService.getUserByNameSurnameOrNickname(SendSearchUser);
-        if(userList != null)
-        model.addAttribute("HaveSearchResult", true );
-        else
-            model.addAttribute("HaveSearchResult", false );
+        if(userList != null) {
+            model.addAttribute("HaveSearchResult", true);
+        }
+        else {
+            model.addAttribute("HaveSearchResult", false);
+        }
         model.addAttribute("UserList", userList);
         model.addAttribute("SendSearchUser", new SendSearchUser());
         return "search";
