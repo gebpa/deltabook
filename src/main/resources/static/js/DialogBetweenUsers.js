@@ -1,7 +1,3 @@
-/*
-var senderLogin = [[${senderLogin}]]
-var recipientLogin = [[${recipientLogin}]]
-*/
 var senderLogin = "";
 var recipientLogin = "";
 function SetSenderAndRecipient(Sender,Recipient) {
@@ -50,8 +46,6 @@ function json2table(json, classes) {
         '</tbody></table>';
 }
 function CheckAndGetMessage() {
-    //alert(senderLogin);
-   // alert(recipientLogin);
     $.ajax({
         type : "GET",
         url: '/get_updated_dialog',
