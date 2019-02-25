@@ -10,11 +10,12 @@
     <title>Пользовательская панель</title>
 </head>
 <body>
-<img src="../static/images/Delta1.png" width="419" th:src="@{images/Delta1.png}"/>
+
 <th:block layout:fragment="script">
     <script th:src="@{/js/CheckAndGetMessage.js}"></script>
     </th:block>
 <div th:insert="Header :: header"></div>
+<img src="../static/images/Delta1.png"  th:src="@{images/Delta1.png}"/>
 <div class="container">
     <div class="row">
 <div class="col-sm-9">
@@ -22,18 +23,18 @@
     <tr>
         <td rowspan="2">
             <div th:if="${hasImage}">
-            <img id="avatar" th:src="*{'data:image/png;base64,'+image}" alt="" />
+            <img id="avatar" th:src="*{'data:image/png;base64,'+image}"  width="300" alt="" />
             </div>
             <div th:unless="${hasImage}">
                 <img id="default_avatar" th:src="@{/images/default-avatar.jpg}" alt="" />
             </div>
         </td>
         <td valign="bottom">
-            Name: <span th:text="${name}"></span>
+         <h4>  Name: <span th:text="${name}"></span></h4>
         </td>
     </tr>
     <td  valign="top">
-        Surname:<span th:text="${surname}"></span>
+        <h4> Surname:<span th:text="${surname}"></span> </h4>
     </td>
     
 </table>
